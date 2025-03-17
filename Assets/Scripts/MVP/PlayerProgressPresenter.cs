@@ -10,8 +10,8 @@ public class PlayerProgressPresenter
     private readonly XPData _xpData;
     private readonly LevelData _levelData;
 
-    public event Action<int> OnXPUpdated; // Событие для обновления XP
-    public event Action<int> OnLevelUpdated; // Событие для обновления Level
+    public event Action<int> OnXPUpdated; 
+    public event Action<int> OnLevelUpdated; 
 
     [Inject]
     public PlayerProgressPresenter(XPData xpData, LevelData levelData)
@@ -23,7 +23,7 @@ public class PlayerProgressPresenter
     public async Task AddXP(int amount)
     {
         _xpData.AddXP(amount);
-        OnXPUpdated?.Invoke(_xpData.XP); // Обновляем UI
+        OnXPUpdated?.Invoke(_xpData.XP); 
         await CheckLevelUp();
     }
 
@@ -33,11 +33,11 @@ public class PlayerProgressPresenter
         {
             _levelData.LevelUp();
             _xpData.AddXP(-100);
-            OnLevelUpdated?.Invoke(_levelData.Level); // Обновляем UI
-            OnXPUpdated?.Invoke(_xpData.XP); // Обновляем UI после сброса XP
+            OnLevelUpdated?.Invoke(_levelData.Level); 
+            OnXPUpdated?.Invoke(_xpData.XP); 
         }
     }
 
-    public int GetCurrentXP() => _xpData.XP; // Получаем текущее значение XP
-    public int GetCurrentLevel() => _levelData.Level; // Получаем текущее значение Level
+    public int GetCurrentXP() => _xpData.XP; 
+    public int GetCurrentLevel() => _levelData.Level; 
 }
